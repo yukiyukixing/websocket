@@ -1,0 +1,24 @@
+﻿<html>
+
+<head>
+  <title>接收端</title>
+</head>
+
+<body>
+  <h2>接收到的参数为：<span id="h3"></span></h2>
+  <script type="text/javascript">
+
+    let ws = new WebSocket("ws://localhost:3000");// 设置服务器地址 //
+    ws.onopen = function () {  // onopen 连接触发 //
+      console.log("websocket open");
+    }
+    ws.onclose = function () { // onclose 断开触发 //
+      console.log("websocket close");
+    }
+    ws.onmessage = function (e) { // onmessage 接收到信息触发  //
+      document.getElementById("h3").innerHTML = e.data
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+﻿<html>
+
+<head>
+  <title>控制端</title>
+  <style>
+    input {
+      width: 200px;
+      height: 45px;
+    }
+    button {
+      width: 200px;
+      height: 45px;
+      background-color: aqua;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <input id="input" type="text" placeholder="请填写你需要传的参数"/>
+  <button id="button">点击传参</button>
+  <script type="text/javascript">
+
+    let ws = new WebSocket("ws://localhost:3000");// 设置服务器地址 //
+    ws.onopen = function () {  // onopen 连接触发 //
+      console.log("websocket open");
+    }
+    ws.onclose = function () { // onclose 断开触发 //
+      console.log("websocket close");
+    }
+    ws.onmessage = function (e) { // onmessage 接收到信息触发  //
+      console.log(e.data);
+    }
+
+    let inputDom = document.getElementById("input")
+    let buttonDom = document.getElementById("button")
+    
+    buttonDom.onclick = function(){
+      let inputValue = inputDom.value;
+      if(!!inputValue){
+        ws.send(inputValue);
+      }else{
+        alert("请输入你需要传的参数")
+      }
+      
+    }
+  </script>
+</body>
+
+</html>
